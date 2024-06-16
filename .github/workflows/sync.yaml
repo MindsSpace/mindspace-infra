@@ -1,0 +1,20 @@
+name: Sync Repository to MindsSpace Organization
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  git-sync:
+    name: Sync Repository
+    if: ${{ github.repository == 'robbypambudi/mindspace-infra' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: "https://robbypambudi:${{secrets.ACCESS_TOKEN}}@github.com/robbypambudi/mindspace-infra.git"
+          source_branch: "main"
+          destination_repo: "https://robbypambudi:${{secrets.ACCESS_TOKEN}}@github.com/MindsSpace/mindspace-infra.git"
+          destination_branch: "main"
