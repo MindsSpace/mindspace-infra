@@ -1,0 +1,48 @@
+{
+	"variables": {
+		"service_account_json": "./ssl/account.json",
+		"project_id": "{{env `PROJECT_ID`}}"
+	},
+	"builders": [
+		{
+			"type": "googlecompute",
+			"project_id": "{{user `project_id`}}",
+			"machine_type": "e2-micro",
+			"source_image": "ubuntu-pro-2204-jammy-v20240614",
+			"region": "asia-southeast2",
+			"zone": "asia-southeast2-a",
+			"ssh_username": "ubuntu",
+			"image_description": "slave-base-image",
+			"image_family": "slave-base-image",
+			"image_name": "slave-base-image",
+			"disk_size": 10,
+			"account_file": "{{ user `service_account_json`}}"
+		}
+	],
+	"provisioners": [
+		{
+			"type": "file",
+			"source": "./configs/pg_hba.conf",
+			"destination": "/home/ubuntu/"
+		},
+    {
+			"type": "file",
+			"source": "./configs/postgresql.conf",
+			"destination": "/home/ubuntu/"
+    },
+    {
+			"type": "file",
+			"source": "./configs/recovery.conf",
+			"destination": "/home/ubuntu/"
+		},
+		{
+			"type": "file",
+			"source": "./scripts/slave.sh",
+			"destination": "/home/ubuntu/"
+		},
+		{
+			"type": "shell",
+			"script": "./packer/setup_db.sh"
+    }
+	]
+}

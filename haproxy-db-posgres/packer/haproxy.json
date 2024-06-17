@@ -1,0 +1,38 @@
+{
+	"variables": {
+		"service_account_json": "./ssl/account.json",
+		"project_id": "{{env `PROJECT_ID`}}"
+	},
+	"builders": [
+		{
+			"type": "googlecompute",
+			"project_id": "{{user `project_id`}}",
+			"machine_type": "e2-small",
+			"source_image": "ubuntu-pro-2204-jammy-v20240614",
+			"region": "asia-southeast2",
+			"zone": "asia-southeast2-a",
+			"ssh_username": "ubuntu",
+			"image_description": "HAProxy Base Image",
+			"image_family": "ubuntu-2204",
+			"image_name": "haproxy-base-image",
+			"disk_size": 20,
+			"account_file": "{{ user `service_account_json`}}"
+		}
+	],
+	"provisioners": [
+		{
+			"type": "file",
+			"source": "./configs/haproxy.cfg",
+			"destination": "/home/haproxy/"
+		},
+		{
+			"type": "file",
+			"source": "./scripts/haproxy.sh",
+			"destination": "/home/haproxy/"
+		},
+		{
+			"type": "shell",
+			"script": "./scripts/setup_haproxy.sh"
+    }
+	]
+}
