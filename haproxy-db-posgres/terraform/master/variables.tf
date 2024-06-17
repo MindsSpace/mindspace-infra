@@ -1,9 +1,10 @@
 variable "project_id" {
-  type = string
+  type    = string
+  default = "fp-sisop"
 }
 variable "region" {
   type    = string
-  default = "value"
+  default = "asia-southeast2"
 }
 variable "zone" {
   type    = string
@@ -26,8 +27,4 @@ variable "master_name" {
 
 variable "master_static_ip" {
   type = string
-}
-
-resource "google_compute_address" "master_static_ip" {
-  name = "ipv4-address"
 }

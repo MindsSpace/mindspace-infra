@@ -1,19 +1,19 @@
-
-
 provider "google" {
   credentials = file("../../ssl/account.json")
   project     = var.project_id
   region      = var.region
-  zone        = var.zone
 }
 
 resource "google_compute_instance" "master_instance" {
   name         = var.master_name
+  zone         = var.zone
   machine_type = var.machine_type
 
   boot_disk {
+    device_name = "master-device"
+
     initialize_params {
-      image = var.master_image
+      image = "master-base-image"
     }
   }
 
@@ -42,6 +42,7 @@ resource "google_compute_instance" "master_instance" {
   }
 }
 
-output "master_ip" {
-  value = google_compute_instance.master_instance.network_interface.0.access_config.0.nat_ip
+resource "google_compute_address" "master_static_ip" {
+  name   = "master-static-ip"
+  region = var.region
 }
