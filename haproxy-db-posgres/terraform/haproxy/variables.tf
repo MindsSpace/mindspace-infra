@@ -2,10 +2,12 @@ variable "project_id" {
   type = string
 }
 variable "region" {
-  type = string
+  type    = string
+  default = "asia-southeast2"
 }
 variable "zone" {
-  type = string
+  type    = string
+  default = "asia-southeast2-a"
 }
 variable "haproxy_image" {
   type    = string
@@ -20,6 +22,10 @@ variable "machine_type" {
 variable "haproxy_name" {
   type    = string
   default = "haproxy-server"
+}
+
+variable "haproxy_static_ip" {
+  type = string
 }
 
 resource "google_compute_address" "haproxy_static_ip" {

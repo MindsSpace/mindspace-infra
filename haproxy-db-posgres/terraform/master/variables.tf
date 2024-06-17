@@ -2,10 +2,12 @@ variable "project_id" {
   type = string
 }
 variable "region" {
-  type = string
+  type    = string
+  default = "value"
 }
 variable "zone" {
-  type = string
+  type    = string
+  default = "asia-southeast2-a"
 }
 variable "master_image" {
   type    = string
@@ -20,6 +22,10 @@ variable "machine_type" {
 variable "master_name" {
   type    = string
   default = "master-server"
+}
+
+variable "master_static_ip" {
+  type = string
 }
 
 resource "google_compute_address" "master_static_ip" {

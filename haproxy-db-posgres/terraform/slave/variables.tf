@@ -2,10 +2,12 @@ variable "project_id" {
   type = string
 }
 variable "region" {
-  type = string
+  type    = string
+  default = "asia-southeast2"
 }
 variable "zone" {
-  type = string
+  type    = string
+  default = "asia-southeast2-a"
 }
 variable "slave_image" {
   type    = string
@@ -25,6 +27,14 @@ variable "slave1_name" {
 variable "slave2_name" {
   type    = string
   default = "slave2-server"
+}
+
+variable "slave1_static_ip" {
+  type = string
+}
+
+variable "slave2_static_ip" {
+  type = string
 }
 
 resource "google_compute_address" "slave1_static_ip" {
