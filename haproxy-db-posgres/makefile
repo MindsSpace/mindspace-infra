@@ -10,6 +10,8 @@ SLAVE_IMG_TAG=$(shell grep 'A disk image was created:' $(SLAVE_OUTPUT) | cut -d'
 
 all: build_master deploy_master build_slave deploy_slave build_haproxy deploy_haproxy
 
+build: build_haproxy build_master build_slave
+
 apply: deploy_haproxy deploy_master deploy_slave
 
 down: destroy_haproxy destroy_master destroy_slave

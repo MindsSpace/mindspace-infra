@@ -10,8 +10,9 @@ resource "google_compute_instance" "slave1_instance" {
   machine_type = var.machine_type
 
   boot_disk {
+    device_name = "slave1-device"
     initialize_params {
-      image = var.slave_image
+      image = "slave-base-image"
     }
   }
 
@@ -45,8 +46,10 @@ resource "google_compute_instance" "slave2_instance" {
   machine_type = var.machine_type
 
   boot_disk {
+    device_name = "slave2-device"
+
     initialize_params {
-      image = var.slave_image
+      image = "slave-base-image"
     }
   }
 
@@ -73,12 +76,4 @@ resource "google_compute_instance" "slave2_instance" {
       "https://www.googleapis.com/auth/logging.write",
     ]
   }
-}
-
-output "slave1_ip" {
-  value = google_compute_instance.slave1_instance.network_interface.0.access_config.0.nat_ip
-}
-
-output "slave2_ip" {
-  value = google_compute_instance.slave2_instance.network_interface.0.access_config.0.nat_ip
 }

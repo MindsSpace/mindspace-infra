@@ -8,10 +8,12 @@ provider "google" {
 resource "google_compute_instance" "haproxy_instance" {
   name         = var.haproxy_name
   machine_type = var.machine_type
+  tags         = ["haproxy"]
 
   boot_disk {
+    device_name = "haproxy-device"
     initialize_params {
-      image = var.haproxy_image
+      image = "haproxy-base-image"
     }
   }
 
@@ -38,8 +40,4 @@ resource "google_compute_instance" "haproxy_instance" {
       "https://www.googleapis.com/auth/logging.write",
     ]
   }
-}
-
-output "haproxy_ip" {
-  value = google_compute_instance.haproxy_instance.network_interface.0.access_config.0.nat_ip
 }

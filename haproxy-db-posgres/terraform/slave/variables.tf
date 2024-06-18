@@ -1,5 +1,6 @@
 variable "project_id" {
-  type = string
+  type    = string
+  default = "fp-sisop"
 }
 variable "region" {
   type    = string
@@ -38,8 +39,10 @@ variable "slave2_static_ip" {
 }
 
 resource "google_compute_address" "slave1_static_ip" {
-  name = "ipv4-address"
+  name   = "slave1-ipv4-address"
+  region = var.region
 }
 resource "google_compute_address" "slave2_static_ip" {
-  name = "ipv4-address"
+  name   = "slave2-ipv4-address"
+  region = var.region
 }

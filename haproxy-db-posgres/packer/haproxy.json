@@ -13,13 +13,21 @@
 			"zone": "asia-southeast2-a",
 			"ssh_username": "ubuntu",
 			"image_description": "HAProxy Base Image",
-			"image_family": "ubuntu-2204",
+			"image_family": "haproxy-base-image",
 			"image_name": "haproxy-base-image",
 			"disk_size": 20,
 			"account_file": "{{ user `service_account_json`}}"
 		}
 	],
 	"provisioners": [
+		{
+			"type": "shell",
+			"inline": [
+				"sudo apt-get update",
+				"sudo mkdir /home/haproxy",
+				"sudo chown -R ubuntu:ubuntu /home/haproxy"
+			]
+		},
 		{
 			"type": "file",
 			"source": "./configs/haproxy.cfg",
@@ -32,7 +40,7 @@
 		},
 		{
 			"type": "shell",
-			"script": "./scripts/setup_haproxy.sh"
+			"script": "./packer/setup_haproxy.sh"
     }
 	]
 }
