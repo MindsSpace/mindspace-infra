@@ -1,6 +1,6 @@
 variable "project_id" {
   type    = string
-  default = "fp-sisop"
+  default = "mindspace-capstone-project"
 }
 variable "region" {
   type    = string

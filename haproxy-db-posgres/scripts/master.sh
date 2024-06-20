@@ -8,6 +8,9 @@ sudo -u postgres psql -c "CREATE USER replica REPLICATION;"
 # create haproxy user
 sudo -u postgres psql -c "CREATE USER haproxy_user;"
 
+# uuid extension
+sudo -u postgres psql -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+
 # replace pg_hba.conf file
 sudo rm -v /etc/postgresql/14/main/pg_hba.conf
 sudo cp ./pg_hba.conf /etc/postgresql/14/main/pg_hba.conf
